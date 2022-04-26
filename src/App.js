@@ -1,27 +1,23 @@
-import logo from './logo.svg';
 import './App.css';
-import List from './pages/todos/List';
 import Add from "./pages/todos/Add";
 import Edit from "./pages/todos/Edit";
 import Login from "./pages/Login";
+import Signin from './pages/SignIn'
 import {
     Route,
     Routes,
     Link, BrowserRouter
 } from "react-router-dom";
 import GalleryImage from "./pages/GalleryImage";
-
 function App() {
     return (
         <>
             <BrowserRouter>
-                <Link to="/add">Add</Link>
                 <Routes>
-                    <Route path="/" element={<List/>}/>
+                    <Route path="/" element={<Login/>}/>
+                    <Route path="/signin" element={<Signin/>}/>
                     <Route path="/add" element={<Add/>}/>
                     <Route path="/edit" element={<Edit/>}/>
-                    <Route path="/gallery" element={<GalleryImage/>}/>
-                    <Route path="/login" element={<Login/>}/>
                 </Routes>
             </BrowserRouter>
         </>

@@ -1,32 +1,86 @@
-import React, {useState} from 'react';
-import {db} from "../../firebase";
-import {collection, addDoc} from "firebase/firestore";
-
+import React, {useEffect, useState, useRef} from 'react';
+import {db, auth} from "../../firebase";
+import {collection, getDocs, deleteDoc, doc, onSnapshot, addDoc } from "firebase/firestore";
+import {useNavigate, Link} from 'react-router-dom'
 const Add = () => {
+    let navigate = useNavigate();
+    const [todos, setTodos] = useState([]);
     const [message, setMessage] = useState('');
-    const addNote = async () => {
-        if (!message) {
-            alert("Nhập vào rồi hãy submit bạn ơi");
-            return;
-        }
-        const collectionRef = collection(db, 'todos');
-        try {
-            await addDoc(collectionRef, {
-                message
+    const [filter, setFilter] = useState([]);
+    const [id, setId] = useState(0)
+    const focus =  useRef(null);
+    let unsub = null;
+    useEffect(() => {
+      (async () => {
+        const collectionRef = collection(db, 'todo');
+        unsub = onSnapshot(collectionRef, (snapShot) => {
+          const localTodos = [];
+          snapShot.forEach(doc => {
+            localTodos.push({
+                id: doc.id,
+              id_user: doc.data().id,
+              message: doc.data().message
             });
-        } catch (e) {
-            console.log(e);
-        }
+        });
+        setTodos(localTodos);
+    });
+})();
+}, []);
+    const addNote = async () => {
+        const collectionRef = collection(db, 'todo');
+        console.log(collectionRef)
+        await addDoc(collectionRef, { message: message,id: id});
+        focus.current.focus();
+        setMessage('');
+    }
+    useEffect(() => {
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                setId(user.uid)
+                console.log(user.uid);
+            }
+          })
+        setFilter(todos.filter(todo => todo.id_user === id))
+    }, [todos])
 
-        setMessage('')
+    const _logOut = () => {
+        auth.signOut();
+        navigate('/')
+    }
+    const deleteNote = async (id) => {
+
+        const docRef = doc(db, 'todo', id);
+        await deleteDoc(docRef);
+    }
+    const _change = () => {
+        navigate('/edit')
     }
     return (
-        <div>
-            <h1>Add Todo</h1>
-            <input type="text"
-                   onChange={(evt) => setMessage(evt.target.value)}
-                   value={message}/>
-            <button onClick={addNote}>Add Note</button>
+        <div className='container mt-2 mx-auto'>
+            <div>
+                <button className='px-3 float-right py-2 text-sm text-blue-100 bg-red-600 rounded' onClick={_logOut}>Log out</button>
+                <h1 className='text-center font-bold mt-10'>Add Todo</h1>
+                <div className="my-10">
+                <label htmlFor="comment" className="text-lg text-gray-600"></label>
+                <textarea onChange={(evt) => setMessage(evt.target.value)}
+                    value={message} className="w-full h-20 p-2 border rounded focus:outline-none focus:ring-gray-300 focus:ring-1"
+                name="comment" placeholder=""></textarea>
+                </div>
+                <div className='flex items-center justify-between'>
+                    <button onClick={addNote} className="px-3 py-2 text-sm text-blue-100 bg-blue-600 rounded">Add</button>
+                </div>
+            </div>
+            <div className='mt-10'>
+                    {filter?.map((item, index) => (
+                        <div className='flex items-center justify-between my-2' key={index}>
+                            <p>{item.message}</p> 
+                            <div>
+                                <Link to={`/edit?id=${item.id}`}>Edit</Link>
+                                <button onClick={() => deleteNote(item.id)} className='px-3 ml-2 py-2 text-sm text-blue-100 bg-blue-600 rounded'>Delete</button>
+                            </div>
+                        </div>
+                    ))}
+            </div>
         </div>
     );
 };

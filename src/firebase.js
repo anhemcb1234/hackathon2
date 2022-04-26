@@ -7,12 +7,13 @@ import {getAuth} from "firebase/auth";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyDHgEcZExm9DaIVlOXZ0qjgrdTDjzsJRHk",
-    authDomain: "my-demo-cy.firebaseapp.com",
-    projectId: "my-demo-cy",
-    storageBucket: "my-demo-cy.appspot.com",
-    messagingSenderId: "245671532206",
-    appId: "1:245671532206:web:3e7ccd17f2cddd5e673f3f"
+    apiKey: "AIzaSyCx87Mf7Ir1amSfWbO5OBdpKRuVxkewARo",
+    authDomain: "hackathon2-ffa32.firebaseapp.com",
+    databaseURL: "https://hackathon2-ffa32-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "hackathon2-ffa32",
+    storageBucket: "hackathon2-ffa32.appspot.com",
+    messagingSenderId: "565048692034",
+    appId: "1:565048692034:web:bf8b03e29386e7eff90cdb"
 };
 
 // Initialize Firebase
