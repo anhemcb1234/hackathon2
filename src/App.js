@@ -6,9 +6,8 @@ import Signin from './pages/SignIn'
 import {
     Route,
     Routes,
-    Link, BrowserRouter
+    BrowserRouter
 } from "react-router-dom";
-import GalleryImage from "./pages/GalleryImage";
 function App() {
     return (
         <>

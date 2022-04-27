@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useSearchParams} from "react-router-dom";
 import {doc, getDoc, updateDoc} from 'firebase/firestore';
-import {db} from "../../firebase";
+import {db, auth} from "../../firebase";
 import {useNavigate, Link} from 'react-router-dom'
 
 const Edit = () => {
@@ -9,6 +9,9 @@ const Edit = () => {
     const [searchParam] = useSearchParams();
     const [message, setMessage] = useState('');
     useEffect(() => {
+        if(!auth.currentUser){
+            navigate('/')
+        }
         (async () => {
             const docRef = doc(db, 'todo', searchParam.get('id'));
             const docSnapshot = await getDoc(docRef);

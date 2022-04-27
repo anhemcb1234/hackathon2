@@ -1,6 +1,6 @@
 import React, {useEffect, useState, useRef} from 'react';
 import {db, auth} from "../../firebase";
-import {collection, getDocs, deleteDoc, doc, onSnapshot, addDoc } from "firebase/firestore";
+import {collection, deleteDoc, doc, onSnapshot, addDoc } from "firebase/firestore";
 import {useNavigate, Link} from 'react-router-dom'
 const Add = () => {
     let navigate = useNavigate();
@@ -11,6 +11,9 @@ const Add = () => {
     const focus =  useRef(null);
     let unsub = null;
     useEffect(() => {
+        if(!auth.currentUser){
+            navigate('/')
+        }
       (async () => {
         const collectionRef = collection(db, 'todo');
         unsub = onSnapshot(collectionRef, (snapShot) => {
@@ -23,6 +26,7 @@ const Add = () => {
             });
         });
         setTodos(localTodos);
+        setMessage('');
     });
 })();
 }, []);
@@ -31,7 +35,7 @@ const Add = () => {
         console.log(collectionRef)
         await addDoc(collectionRef, { message: message,id: id});
         focus.current.focus();
-        setMessage('');
+
     }
     useEffect(() => {
         auth.onAuthStateChanged((user) => {
@@ -52,9 +56,7 @@ const Add = () => {
         const docRef = doc(db, 'todo', id);
         await deleteDoc(docRef);
     }
-    const _change = () => {
-        navigate('/edit')
-    }
+
     return (
         <div className='container mt-2 mx-auto'>
             <div>
