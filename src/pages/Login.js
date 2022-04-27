@@ -37,16 +37,16 @@ const Login = () => {
                 </div>
                 <div className="mb-6">
                     <label className="block text-grey-darker text-sm font-bold mb-2" htmlFor="password">
-                        Password
+                        Mật khẩu
                     </label>
                     <input onChange={(evt) => setPassword(evt.target.value)} className="shadow appearance-none border border-red rounded w-full py-2 px-3 text-grey-darker mb-3" id="password" type="password" placeholder="******************" />
                 </div>
                 <div className="flex items-center justify-between">
                     <button onClick={_doLogin} className="bg-blue hover:bg-blue-dark font-bold py-2 px-4 rounded" type="button">
-                        Log in
+                        Đăng nhập
                     </button>
                 </div>
-                <Link className='bg-blue hover:bg-blue-dark font-bold py-2 px-4 rounded' to="/signin">Sign in</Link>
+                <Link className='bg-blue hover:bg-blue-dark font-bold py-2 px-4 rounded' to="/signin">Đăng kí</Link>
             </div>
     );
 };

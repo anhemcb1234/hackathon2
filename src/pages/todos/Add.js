@@ -13,6 +13,7 @@ const Add = () => {
     useEffect(() => {
         if(!auth.currentUser){
             navigate('/')
+            alert('Vui lòng đăng nhập để thực hiện chức năng này')
         }
       (async () => {
         const collectionRef = collection(db, 'todo');
@@ -60,8 +61,8 @@ const Add = () => {
     return (
         <div className='container mt-2 mx-auto'>
             <div>
-                <button className='px-3 float-right py-2 text-sm text-blue-100 bg-red-600 rounded' onClick={_logOut}>Log out</button>
-                <h1 className='text-center font-bold mt-10'>Add Todo</h1>
+                <button className='px-3 float-right py-2 text-sm text-blue-100 bg-red-600 rounded' onClick={_logOut}>Đăng xuất</button>
+                <h1 className='text-center font-bold mt-10'>Thêm công việc</h1>
                 <div className="my-10">
                 <label htmlFor="comment" className="text-lg text-gray-600"></label>
                 <textarea onChange={(evt) => setMessage(evt.target.value)}
@@ -69,7 +70,7 @@ const Add = () => {
                 name="comment" placeholder=""></textarea>
                 </div>
                 <div className='flex items-center justify-between'>
-                    <button onClick={addNote} className="px-3 py-2 text-sm text-blue-100 bg-blue-600 rounded">Add</button>
+                    <button onClick={addNote} className="px-3 py-2 text-sm text-blue-100 bg-blue-600 rounded">Thêm công việc</button>
                 </div>
             </div>
             <div className='mt-10'>
@@ -77,8 +78,8 @@ const Add = () => {
                         <div className='flex items-center justify-between my-2' key={index}>
                             <p>{item.message}</p> 
                             <div>
-                                <Link to={`/edit?id=${item.id}`}>Edit</Link>
-                                <button onClick={() => deleteNote(item.id)} className='px-3 ml-2 py-2 text-sm text-blue-100 bg-blue-600 rounded'>Delete</button>
+                                <Link to={`/edit?id=${item.id}`}>Sửa</Link>
+                                <button onClick={() => deleteNote(item.id)} className='px-3 ml-2 py-2 text-sm text-blue-100 bg-blue-600 rounded'>Xóa</button>
                             </div>
                         </div>
                     ))}
