@@ -22,7 +22,7 @@ const Signin = () => {
     }
     return (
         <div className="bg-white h-screen items-center justify-center shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col">
-            <h1 className='font-bold mb-2'>Đăng kí</h1>
+            <h1 className='font-bold mb-2 uppercase'>Đăng kí</h1>
         <div className="mb-4">
                 <label className="block text-grey-darker text-sm font-bold mb-2" htmlFor="username">
                     Email

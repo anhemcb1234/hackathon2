@@ -28,7 +28,7 @@ const Login = () => {
     };
     return (
             <div className="bg-white h-screen items-center justify-center shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col">
-                <h1 className='font-bold mb-2'>Log in</h1>
+                <h1 className='font-bold mb-2 uppercase'>Log in</h1>
             <div className="mb-4">
                     <label className="block text-grey-darker text-sm font-bold mb-2" htmlFor="username">
                         Email
@@ -46,7 +46,9 @@ const Login = () => {
                         Đăng nhập
                     </button>
                 </div>
-                <Link className='bg-blue hover:bg-blue-dark font-bold py-2 px-4 rounded' to="/signin">Đăng kí</Link>
+                <button className='bg-blue hover:bg-blue-dark font-bold py-2 px-4 rounded'>
+                    <Link  to="/signin">Đăng kí</Link>
+                </button>
             </div>
     );
 };

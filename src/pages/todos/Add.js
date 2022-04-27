@@ -62,7 +62,7 @@ const Add = () => {
         <div className='container mt-2 mx-auto'>
             <div>
                 <button className='px-3 float-right py-2 text-sm text-blue-100 bg-red-600 rounded' onClick={_logOut}>Đăng xuất</button>
-                <h1 className='text-center font-bold mt-10'>Thêm công việc</h1>
+                <h1 className='text-center font-bold mt-10 uppercase'>Thêm công việc</h1>
                 <div className="my-10">
                 <label htmlFor="comment" className="text-lg text-gray-600"></label>
                 <textarea onChange={(evt) => setMessage(evt.target.value)}
